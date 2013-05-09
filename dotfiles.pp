@@ -5,6 +5,7 @@ Exec {
 $libs = [
   "acl",
   "git",
+  "tig",
   "mercurial",
   "zsh",
   "tmux",
@@ -121,6 +122,10 @@ exec { "make-silver-searcher":
   command => "sudo make install",
   logoutput => true,
   require => Exec["build-silver-searcher"],
+}
+
+file { "/etc/default/locale":                                                   
+  content => 'LC_ALL="en_US.UTF-8"',                                            
 }
 
 exec { "chsh -s /usr/bin/zsh vagrant":
