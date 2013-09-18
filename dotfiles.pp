@@ -7,7 +7,7 @@ $libs = [
   "git",
   "tig",
   "mercurial",
-  "zsh",
+  "fish",
   "tmux",
   "build-essential",
   "cmake",
@@ -49,7 +49,6 @@ exec { "install-dotfiles-symlinks":
 
 exec { "install-vim":
   user => "vagrant",
-  cwd => "/home/vagrant/dotfiles/scripts/",
   command => "sh vim-install.sh",
   logoutput => true,
   require => [
@@ -128,7 +127,7 @@ file { "/etc/default/locale":
   content => 'LC_ALL="en_US.UTF-8"',                                            
 }
 
-exec { "chsh -s /usr/bin/zsh vagrant":
-  unless  => "grep -E '^vagrant.+:/usr/bin/zsh$' /etc/passwd",
-  require => Package["zsh"],
+exec { "change-sh":
+  command => "chsh -s /usr/bin/fish vagrant",
+  require => Package["fish"],
 }
